@@ -1,0 +1,41 @@
+{{#
+    @name Team Members
+    @desc The Team Members page builder block.
+    @set page.page_builder.team_members
+#}}
+
+<!-- /page_builder/_team_members.antlers.html -->
+<section class="fluid-grid gap-y-8">
+    {{ if block:title or block:text }}
+        <header class="span-content stack-4">
+            {{ block:title ?= { partial:typography/h2 :content="block:title" } }}
+            {{ block:text ?= { partial:typography/p :content="block:text" } }}
+        </header>
+    {{ /if }}
+
+    <div class="span-content grid md:grid-cols-12 gap-fluid-grid-gap">
+        {{
+            team_members = block:team_members
+                ? block:team_members
+                : { collection:team_members sort="order" }
+        }}
+
+        {{ team_members scope="team_member" }}
+            <article class="md:col-span-4 flex flex-col gap-3 aspect-[4/3]">
+                {{ partial
+                    src="statamic-peak-tools::components/picture"
+                    :image="team_member:image:url"
+                    aspect_ratio="4/3"
+                    sizes="(min-width: 1280px) 430px, (min-width: 768px) 33vw, 90vw"
+                    cover="true"
+                    lazy="true"
+                }}
+                <header class="flex flex-col">
+                    <span class="text-sm text-neutral">{{ team_member:function }}</span>
+                    <span class="text-neutral">{{ team_member:title }}</span>
+                </header>
+            </article>
+        {{ /team_members }}
+    </div>
+</section>
+<!-- End: /page_builder/_team_members.antlers.html -->

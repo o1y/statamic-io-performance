@@ -1,0 +1,17 @@
+{{#
+    @name Include Content
+    @desc The Include Content page builder block.
+    @set page.page_builder.include_content
+#}}
+
+<!-- /page_builder/_include_content.antlers.html -->
+{{ _entry ={ include_entry | get('id')} }}
+
+<section>
+    {{ get_content :from="_entry" }}
+        {{ page_builder scope="block" }}
+            {{ partial src="page_builder/{type}" }}
+        {{ /page_builder }}
+    {{ /get_content }}
+</section>
+<!-- End: /page_builder/_include_content.antlers.html -->
